@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
- console.log(currentUser.role);
+//  console.log(currentUser?.role);
   return (
     <div className="bg-slate-200">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
@@ -16,6 +16,14 @@ const Header = () => {
           <Link to="/about">
             <li>About</li>
           </Link>
+
+          {/* Admin Page */}
+          {currentUser?.role === "admin" && (
+            <Link to="/test">
+              <li>Admin page</li>
+            </Link>
+          )}
+
           <Link to="/profile">
             {currentUser ? (
               <img
@@ -27,12 +35,9 @@ const Header = () => {
               <li>Sign in</li>
             )}
           </Link>
-
-         {currentUser && currentUser.role === "admin" && (
-          <Link to="/test">
-            <li>Admin page</li>
-          </Link>
-         )}
+            
+          
+        
         </ul>
       </div>
     </div>

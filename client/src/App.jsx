@@ -23,7 +23,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
           </Route>
           <Route element={<AdminRoute />}>
-          <Route path="/test" element={<Test />} />
+            <Route path="/test" element={<Test />} />
           </Route>
         </Routes>
       </BrowserRouter>
