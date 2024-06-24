@@ -1,11 +1,19 @@
 import { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 const Signin = () => {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(false);
-  const [ loading, setLoading ] = useState(false);
+
+  const { loading, error } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -14,8 +22,7 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
-      setError(false);
+      dispatch(signInStart());
       const response = await fetch("/api/auth/signin", {
         method: "POST",
         headers: {
@@ -24,16 +31,14 @@ const Signin = () => {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
-      console.log(data);
-      setLoading(false);
-      if(data.success === false){
-        setError(true);
+      if (data.success === false) {
+        dispatch(signInFailure(data));
         return;
       }
-      navigate('/');
+      dispatch(signInSuccess(data));
+      navigate("/");
     } catch (error) {
-      setLoading(false);
-      setError(false);
+      dispatch(signInFailure(error));
     }
   };
 
@@ -55,14 +60,15 @@ const Signin = () => {
           id="password"
           className="bg-slate-100 p-3 rounded-lg"
         />
-        
-        <button disabled={loading}
+
+        <button
+          disabled={loading}
           className="bg-slate-700
           text-white p-3 rounded-lg 
           uppercase hover:opacity-90 
           disabled:opacity-80"
         >
-        {loading ? 'Loading....':'Sign In'}
+          {loading ? "Loading...." : "Sign In"}
         </button>
       </form>
       <div className="flex gap-2 mt-5">
@@ -71,7 +77,9 @@ const Signin = () => {
           <span className="text-blue-500">Sign up</span>
         </Link>
       </div>
-      <p className="text-red-700 mt-5">{error && "Something went wrong"}</p>
+      <p className="text-red-700 mt-5">
+        {error?error.message || "Something went wrong" : ""}
+      </p>
     </div>
   );
 };
