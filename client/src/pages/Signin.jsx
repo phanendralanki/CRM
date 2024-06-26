@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import OAuth from "../components/OAuth";
 
+
 const Signin = () => {
   const [formData, setFormData] = useState({});
 
@@ -77,6 +78,12 @@ const Signin = () => {
         <p>Dont Have an account?</p>
         <Link to="/signup">
           <span className="text-blue-500">Sign up</span>
+        </Link>
+      </div>
+      <div className="flex gap-2 mt-3">
+        <p>forgot password?</p>
+        <Link to="/forgotPassword">
+          <span className="text-blue-500">forgot password</span>
         </Link>
       </div>
       <p className="text-red-700 mt-5">

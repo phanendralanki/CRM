@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+
 const Signup = () => {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(false);
-  const [ loading, setLoading ] = useState(false);
+  const [loading,setLoading] = useState(false);
+  const [error,setError] = useState("");
 
   const navigate = useNavigate();
-
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -17,28 +17,28 @@ const Signup = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      setError(false);
-      const response = await fetch("/api/auth/signup", {
-        method: "POST",
+      setError("");
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
-      const data = await response.json();
-      console.log(data);
+      const data = await res.json();
+      // console.log(data.message);
       setLoading(false);
-      if(data.success === false){
-        setError(true);
+      if (data.success === false) {
+        setError(data.message);
         return;
       }
       navigate('/signin');
     } catch (error) {
       setLoading(false);
-      setError(false);
-      console.log(error);
+      setError("something went wrong");
     }
   };
+
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -79,13 +79,14 @@ const Signup = () => {
           id="cpassword"
           className="bg-slate-100 p-3 rounded-lg"
         />
-        <button disabled={loading}
+        <button
+          disabled={loading}
           className="bg-slate-700
           text-white p-3 rounded-lg 
           uppercase hover:opacity-90 
           disabled:opacity-80"
         >
-        {loading ? 'Loading....':'Sign Up'}
+          {loading ? "Loading...." : "Sign Up"}
         </button>
         <OAuth />
       </form>
@@ -95,7 +96,7 @@ const Signup = () => {
           <span className="text-blue-500">Sign in</span>
         </Link>
       </div>
-      <p className="text-red-700 mt-5">{error && "Something went wrong"}</p>
+      <p className="text-red-700 mt-5">{error && error}</p>
     </div>
   );
 };
