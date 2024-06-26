@@ -5,10 +5,17 @@ import dotenv from "dotenv";
 dotenv.config();
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
+import issueRoutes from "./routes/issues.route.js";
+// import cors from 'cors';
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+
+// app.use(cors({
+//   origin:"http://localhost:5173",
+//   credentials:true,
+// }))
 
 // db connection
 mongoose
@@ -27,6 +34,7 @@ app.listen(3000, () => {
 //routes
 app.use("/api/user",userRoutes);
 app.use("/api/auth",authRoutes);
+app.use("/api/issues",issueRoutes);
 
 //Middleware and a function to handle errors
 app.use((err,req,res,next)=> {

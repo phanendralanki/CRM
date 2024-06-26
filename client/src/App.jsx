@@ -6,20 +6,29 @@ import About from "./pages/About";
 import Profile from "./pages/Profile";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
-import Test from "./pages/Test";
 import AdminRoute from "./components/AdminRoute";
 import PublicRoute from "./components/PublicRoute";
 import ForgotPassword from "./pages/ForgotPassword";
-
+import Admin from "./components/adminDashboard/Admin";
 import { Toaster } from "react-hot-toast";
 import ResetPassword from "./pages/ResetPassword";
 
+import {useSelector } from "react-redux";
+
 const App = () => {
+  const {currentUser} = useSelector((state) => state.user);
+  // console.log(currentUser);
+
+  
+
+
+
+
   return (
     <>
       <BrowserRouter>
         {/* Header */}
-        <Header />
+        <Header user = {currentUser} />
         <Toaster position="top-center" reverseOrder={false} />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -36,7 +45,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
           </Route>
           <Route element={<AdminRoute />}>
-            <Route path="/test" element={<Test />} />
+            <Route path="/admin" element={<Admin user={currentUser} />} />
           </Route>
         </Routes>
       </BrowserRouter>

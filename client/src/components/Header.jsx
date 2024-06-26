@@ -19,10 +19,16 @@ const Header = () => {
 
           {/* Admin Page */}
           {currentUser?.role === "admin" && (
-            <Link to="/test">
-              <li>Admin page</li>
+            <Link to="/admin">
+              <li>Admin</li>
             </Link>
           )}
+
+          {/* {currentUser?.role === "admin" && (
+            <Link to="/users">
+              <li>users</li>
+            </Link>
+          )} */}
 
           <Link to="/profile">
             {currentUser ? (
