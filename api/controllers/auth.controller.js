@@ -11,19 +11,28 @@ export const signup = async (req, res, next) => {
     // Check if email is already registered
     let existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ success: false, message: "Email is already registered" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Email is already registered" });
     }
 
     // Check if username is already taken
     existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ success: false, message: "Username is already taken" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Username is already taken" });
     }
 
     // Check if mobile number is already registered
     existingUser = await User.findOne({ mobileNumber });
     if (existingUser) {
-      return res.status(400).json({ success: false, message: "Mobile number is already registered" });
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Mobile number is already registered",
+        });
     }
 
     // const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -134,28 +143,39 @@ export const resetPassword = async (req, res, next) => {
     .update(token)
     .digest("hex");
 
-  const user = await User.findOne({
-    resetPasswordToken,
-    resetPasswordExpire: {
-      $gt: Date.now(),
-    },
-  });
+  try {
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: {
+        $gt: Date.now(),
+      },
+    });
 
-  if (!user) {
-    // throw new ApiError(500,"Link is invalid or has been expired");
-    res
-      .status(400)
-      .json({ success: true, message: "Link is invalid or has been expired" });
-    // return next(new ApiError(404,"Reset List is invalid or has been expired"));
+    if (!user) {
+      // throw new ApiError(500,"Link is invalid or has been expired");
+      return res
+        .status(400)
+        .json({
+          success: true,
+          message: "Link is invalid or has been expired",
+        });
+      // return next(new ApiError(404,"Reset List is invalid or has been expired"));
+    }
+    //if user found
+    user.password = req.body.password;
+    user.resetPasswordExpire = undefined;
+    user.resetPasswordToken = undefined;
+    await user.save();
+
+   return res.status(200).json({
+      success: true,
+      message: "password updated successfully",
+    });
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
-  //if user found
-  user.password = req.body.password;
-  user.resetPasswordExpire = undefined;
-  user.resetPasswordToken = undefined;
-  await user.save();
-
-  res.status(200).json({
-    success: true,
-    message: "password updated successfully",
-  });
 };

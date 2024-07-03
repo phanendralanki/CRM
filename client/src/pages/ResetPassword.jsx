@@ -50,6 +50,7 @@ const ResetPassword = () => {
         navigate("/signin");
       } catch (error) {
         toast.error(error.response?.data?.message || "Something went wrong");
+        navigate("/signin");
       }
     }
   };
