@@ -16,6 +16,31 @@ const getAllIssues = async(req,res,next)=>{
     }
 }
 
+//get issues assigned to a developer
+const getDeveloperIssues = async(req,res)=>{
+    try{
+        const userId = req.query.userId;
+        const issues = await Issue.find({assignedTo:userId});
+        res.json({issues});
+    }catch(error){
+        res.status(500).json({success:false,message:error?.message});
+    }
+}
+
+//Get issues that are created by particular user
+const getUserIssues = async(req,res) => {
+    try{
+        const userId = req.query.userId;
+        if(!userId){
+            res.status(500).json({success:false,message:"UserID is required"});
+        }
+        const issues = await Issue.find({createdBy:userId});
+        return res.json({issues});
+    }catch(error){
+        res.status(500).json({success:false,message:error?.message});
+    }
+}
+
 /* 
     ========================================
                 POST API's
@@ -63,4 +88,24 @@ const deleteIssue = async(req,res)=>{
 };
 
 
-export {getAllIssues,createIssue,deleteIssue};
+/* 
+    ========================================
+                PUT API's
+    ========================================
+*/
+
+export const updateIssue = async(req,res) => {
+    try{
+        const {_id,...rest} = req.body;
+        // console.log(req.body);
+        const data = await Issue.updateOne({_id:_id},rest);
+        if(data){
+            res.status(200).json({success:true,data,message:"updated successfully"});
+        }
+    }catch(error){
+        console.log(error);
+        return res.status(500).json({success:false,message:error?.message || "Error while updating issue"});
+    }
+}
+
+export {getAllIssues,createIssue,deleteIssue,getDeveloperIssues,getUserIssues};

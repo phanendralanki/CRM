@@ -52,7 +52,8 @@ const Admin = ({ user }) => {
 
 
   const fetchData = async () => {
-    const response = await axios.get("/api/issues/getAllIssues");
+    const userId = user?._id;
+    const response = await axios.get(`/api/issues/developerIssues?userId=${userId}`);
     if (response) {
       setDataIssues(response.data.issues);
     }
@@ -116,7 +117,7 @@ const Admin = ({ user }) => {
     e.preventDefault();
     try {
       const data = await axios.put("/api/issues/updateIssue", formDataEdit);
-      console.log(data);
+    //   console.log(data);
       if (data) {
         setEditSection(false);
         fetchData();
@@ -151,8 +152,8 @@ const Admin = ({ user }) => {
 
   return (
     <>
-    <div className="p-5">
-      <button onClick={() => setAddSection(true)}
+    {/* <div className="p-5"> */}
+      {/* <button onClick={() => setAddSection(true)}
       className="p-2 bg-blue-200">Add issue</button>
       {addSection && (
         <IssuesForm
@@ -162,7 +163,7 @@ const Admin = ({ user }) => {
           rest={formData}
           users = {Object.values(users)}
          />
-      )}
+      )} */}
       {
         editSection && (
           <IssuesForm 
@@ -183,8 +184,8 @@ const Admin = ({ user }) => {
         )
       }
 
-    </div>
-      <div className="p-5 h-screen bg-gray-100">
+    {/* </div> */}
+      <div className="p-5 h-screen bg-gray-100 mt-3">
         <h1 className="text-xl mb-2">Issues: </h1>
         <div className="overflow-auto rounded-lg shadow">
           <table className="w-full">
@@ -246,12 +247,12 @@ const Admin = ({ user }) => {
                        className="p-2 m-2 bg-gray-500 text-white rounded-md shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors ">
                         Edit
                       </button>
-                      <button
+                      {/* <button
                         onClick={() => handleDelete(data._id)}
                         className="p-2 bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors "
                       >
                         Delete
-                      </button>
+                      </button> */}
                     </td>
                   </tr>
                 ))

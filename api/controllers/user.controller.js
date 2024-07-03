@@ -37,3 +37,16 @@ export const updateProfile = async (req,res,next)=>{
     }
 
 }
+
+export const getUserNameAndId = async(req,res) => {
+    try{
+        const users = await User.find({},"username _id role"); //fetching only username,id and role
+        res.status(200).json({
+            success:true,
+            users,
+            msg:"Fetched all the users in the DB",
+        });
+    }catch(error){
+        res.status(500).json({message:"Error while fetching all users",error});
+    }
+}

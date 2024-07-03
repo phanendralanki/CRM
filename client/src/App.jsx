@@ -8,11 +8,14 @@ import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./components/AdminRoute";
 import PublicRoute from "./components/PublicRoute";
+import UserRoute from "./components/UserRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import Admin from "./components/adminDashboard/Admin";
+import DeveloperDashboard from "./components/developerDashboard/DeveloperDashboard";
+import UserDashboard from "./components/userDashboard/UserDashboard";
 import { Toaster } from "react-hot-toast";
 import ResetPassword from "./pages/ResetPassword";
-
+import DeveloperRoute from "./components/DeveloperRoute";
 import {useSelector } from "react-redux";
 
 const App = () => {
@@ -46,6 +49,12 @@ const App = () => {
           </Route>
           <Route element={<AdminRoute />}>
             <Route path="/admin" element={<Admin user={currentUser} />} />
+          </Route>
+          <Route element={<DeveloperRoute />}>
+              <Route path="/developer" element={<DeveloperDashboard user={currentUser} />} />
+          </Route>
+          <Route element={<UserRoute />}>
+              <Route path="/user" element={<UserDashboard user={currentUser} />} />
           </Route>
         </Routes>
       </BrowserRouter>

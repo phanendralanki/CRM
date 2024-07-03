@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import IssuesForm from "./IssuesForm";
 import { MdClose } from "react-icons/md";
 
-const Admin = ({ user }) => {
+const UserDashboard = ({ user }) => {
   const [dataIssues, setDataIssues] = useState([]);
 
   const [addSection,setAddSection] = useState(false);
@@ -52,7 +52,8 @@ const Admin = ({ user }) => {
 
 
   const fetchData = async () => {
-    const response = await axios.get("/api/issues/getAllIssues");
+    const userId = user?._id;
+    const response = await axios.get(`/api/issues/getUserIssues?userId=${userId}`);
     if (response) {
       setDataIssues(response.data.issues);
     }
@@ -293,4 +294,4 @@ const IssueView = ({rest,handleClose}) => {
   );
 }
 
-export default Admin;
+export default UserDashboard;
