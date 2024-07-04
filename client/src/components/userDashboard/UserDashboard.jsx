@@ -96,6 +96,7 @@ const UserDashboard = ({ user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await axios.post(`/api/issues/createIssue?userId=${user._id}`, formData);
+    console.log(response);
     if (response) {
       setAddSection(false);
       fetchData();
@@ -106,8 +107,8 @@ const UserDashboard = ({ user }) => {
         mobileNumber: "",
         email: "",
         issueType: "normal", // Reset to default value
-        status: "open", // Reset to default value
-        user: "", // Reset User ID
+        status:"open",
+        user:"", //Reset USER ID
         assignedTo:"",
       });
     }

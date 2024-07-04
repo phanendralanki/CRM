@@ -74,45 +74,7 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             <option value="minor_issue">Minor Issue</option>
             <option value="major_issue">Major Issue</option>
             <option value="normal">Normal</option>
-          </select>
-
-
-          <select
-            className="bg-slate-100 p-3 rounded-lg"
-            aria-label="Default select example"
-            value={rest.status}
-            onChange={handleOnChange}
-            name="status"
-            id="status"
-            required
-          >
-            <option value="">Select status</option>
-            <option value="open">Open</option>
-            <option value="in_progress">In Progress</option>
-            <option value="resolved">Resolved</option>
-            <option value="closed">Closed</option>
-          </select>
-
-          {/* <select
-            id="user"
-            aria-label="Default select example"
-            className="bg-slate-100 p-3 rounded-lg"
-            name="assignedTo"
-            onChange={handleOnChange}
-            value={rest.user}
-            required
-          >
-           
-            {users
-            .filter(user => user.role === "developer")
-            .map((user) => (
-              <option key={user._id} value={user._id}>
-                {user.username}
-              </option>
-            ))}
-          </select> */}
-
-          
+          </select>          
           <button
           className="bg-slate-700
           text-white p-3 rounded-lg 
