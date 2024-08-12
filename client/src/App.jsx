@@ -17,15 +17,9 @@ import { Toaster } from "react-hot-toast";
 import ResetPassword from "./pages/ResetPassword";
 import DeveloperRoute from "./components/DeveloperRoute";
 import {useSelector } from "react-redux";
-
+import Footer from "./components/Footer";
 const App = () => {
   const {currentUser} = useSelector((state) => state.user);
-  // console.log(currentUser);
-
-  
-
-
-
 
   return (
     <>
@@ -57,6 +51,7 @@ const App = () => {
               <Route path="/user" element={<UserDashboard user={currentUser} />} />
           </Route>
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );
