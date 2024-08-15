@@ -51,8 +51,8 @@ const createIssue = async(req,res)=>{
     try{
         const assignedTo = req.body.assignedTo || null;
         const userId = req.query.userId;
-        const {title,customerName,description,email,mobileNumber,issueType,status} = req.body;
-        const issue = new Issue({title,customerName,description,email,mobileNumber,issueType,status,assignedTo,createdBy:userId});
+        const {title,customerName,description,email,mobileNumber,issueType,status,remarks} = req.body;
+        const issue = new Issue({title,customerName,description,email,mobileNumber,issueType,status,assignedTo,remarks,createdBy:userId});
         const data = await issue.save();
         return res.send({success:true,message:"issue created"});
     }catch(error){

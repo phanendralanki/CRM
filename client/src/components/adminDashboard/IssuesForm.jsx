@@ -1,14 +1,21 @@
 import { MdClose } from "react-icons/md";
 
-const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
+const Form = ({
+  handleSubmit,
+  handleOnChange,
+  handleClose,
+  rest,
+  users,
+  errors,
+}) => {
   return (
     <>
       <div className="p-3 max-w-lg mx-auto">
         <h1 className="text-3xl text-center font-bold my-7">Add issue</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div style={{cursor:"pointer"}} onClick={handleClose}>
-          <MdClose />
-        </div>
+          <div style={{ cursor: "pointer" }} onClick={handleClose}>
+            <MdClose />
+          </div>
           <input
             onChange={handleOnChange}
             type="text"
@@ -17,8 +24,8 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             className="bg-slate-100 p-3 rounded-lg"
             name="title"
             value={rest.title}
-            required
           />
+          <span className="error-message">{errors.title}</span>
           <input
             onChange={handleOnChange}
             type="text"
@@ -27,8 +34,8 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             className="bg-slate-100 p-3 rounded-lg"
             name="customerName"
             value={rest.customerName}
-            required
           />
+          <span className="error-message">{errors.customerName}</span>
           <input
             onChange={handleOnChange}
             type="email"
@@ -36,9 +43,9 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             id="email"
             name="email"
             className="bg-slate-100 p-3 rounded-lg"
-            required
             value={rest.email}
           />
+          <span className="error-message">{errors.email}</span>
           <input
             onChange={handleOnChange}
             type="text"
@@ -47,8 +54,8 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             name="mobileNumber"
             className="bg-slate-100 p-3 rounded-lg"
             value={rest.mobileNumber}
-            required
           />
+          <span className="error-message">{errors.mobileNumber}</span>
           <input
             onChange={handleOnChange}
             type="text"
@@ -57,8 +64,19 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             className="bg-slate-100 p-3 rounded-lg"
             value={rest.description}
             name="description"
-            required
           />
+          <span className="error-message">{errors.description}</span>
+
+          <input
+            onChange={handleOnChange}
+            type="text"
+            placeholder="Remarks"
+            id="remarks"
+            className="bg-slate-100 p-3 rounded-lg"
+            value={rest.remarks}
+            name="remarks"
+          />
+          <span className="error-message">{errors.remarks}</span>
 
           <select
             className="bg-slate-100 p-3 rounded-lg"
@@ -67,15 +85,17 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             name="issueType"
             value={rest.issueType}
             onChange={handleOnChange}
-            required
           >
-           <option value="" >Issue Type</option>
+            <option value="" disabled>
+              Issue Type
+            </option>
             <option value="urgent_request">Urgent Request</option>
             <option value="minor_issue">Minor Issue</option>
             <option value="major_issue">Major Issue</option>
             <option value="normal">Normal</option>
           </select>
 
+          <span className="error-message">{errors.issueType}</span>
 
           <select
             className="bg-slate-100 p-3 rounded-lg"
@@ -84,14 +104,17 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             onChange={handleOnChange}
             name="status"
             id="status"
-            required
           >
-            <option value="">Select status</option>
+            <option value="" disabled>
+              Select status
+            </option>
             <option value="open">Open</option>
             <option value="in_progress">In Progress</option>
             <option value="resolved">Resolved</option>
             <option value="closed">Closed</option>
           </select>
+
+          <span className="error-message">{errors.status}</span>
 
           <select
             id="user"
@@ -99,22 +122,24 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             className="bg-slate-100 p-3 rounded-lg"
             name="assignedTo"
             onChange={handleOnChange}
-            value={rest.user}
-            required
+            value={rest.assignedTo}
           >
-            {/* <option value="">Select User</option> */}
+            <option value="" disabled>
+              Select User
+            </option>
             {users
-            .filter(user => user.role === "developer")
-            .map((user) => (
-              <option key={user._id} value={user._id}>
-                {user.username}
-              </option>
-            ))}
+              .filter((user) => user.role === "developer")
+              .map((user) => (
+                <option key={user._id} value={user._id} >
+                  {user.username}
+                </option>
+              ))}
           </select>
 
-          
+          <span className="error-message">{errors.assignedTo}</span>
+
           <button
-          className="bg-slate-700
+            className="bg-slate-700
           text-white p-3 rounded-lg 
           uppercase hover:opacity-90 
           disabled:opacity-80"

@@ -60,6 +60,15 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             required
           />
 
+          <input type="text"
+            onChange={handleOnChange}
+            placeholder="remarks"
+            id="remarks"
+            className="bg-slate-100 p-3 rounded-lg"
+            value={rest.remarks}
+            name="remarks"
+           />
+
           <select
             className="bg-slate-100 p-3 rounded-lg"
             aria-label="Default select example"

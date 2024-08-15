@@ -19,10 +19,11 @@ const Admin = ({ user }) => {
     description:"",
     mobileNumber:"",
     email :"",
-    issueType:"normal", //setting default value 
-    status:"open", //setting default values
-    user :"", //Initially empty
+    issueType:"",  
+    status:"", 
+    user :"", 
     assignedTo:"",
+    remarks:"",
   });
 
   const [formDataEdit, setFormDataEdit] = useState({
@@ -209,7 +210,9 @@ const Admin = ({ user }) => {
                 <th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">
                   Status
                 </th>
-                <th className="w-20 p-3 text-sm font-semibold tracking-wide text-left"></th>
+               <th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">
+                
+               </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -236,6 +239,7 @@ const Admin = ({ user }) => {
                         {data.status}
                       </span>
                     </td>
+                    
                     <td className="p-3 text-sm whitespace-nowrap">
                       <button 
                         onClick={() => handleView(data)}
@@ -289,6 +293,7 @@ const IssueView = ({rest,handleClose}) => {
         <p><strong>Issue Type: </strong> {rest.issueType} </p>
         {/* Display assigned user's name */}
         <p><strong>Assigned To: </strong>{rest.assignedTo || "not yet assigned"}</p>
+        <p><strong>Remarks: </strong>{rest.remarks || ""}</p>
       </div>
     </div>
   );

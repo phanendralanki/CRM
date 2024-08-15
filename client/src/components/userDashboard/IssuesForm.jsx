@@ -1,6 +1,6 @@
 import { MdClose } from "react-icons/md";
 
-const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
+const Form = ({ handleSubmit, handleOnChange, handleClose, rest, errors }) => {
   return (
     <>
       <div className="p-3 max-w-lg mx-auto">
@@ -17,8 +17,8 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             className="bg-slate-100 p-3 rounded-lg"
             name="title"
             value={rest.title}
-            required
           />
+          <span className="error-message">{errors.title}</span>
           <input
             onChange={handleOnChange}
             type="text"
@@ -27,8 +27,9 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             className="bg-slate-100 p-3 rounded-lg"
             name="customerName"
             value={rest.customerName}
-            required
+      
           />
+           <span className="error-message">{errors.customerName}</span>
           <input
             onChange={handleOnChange}
             type="email"
@@ -36,9 +37,9 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             id="email"
             name="email"
             className="bg-slate-100 p-3 rounded-lg"
-            required
             value={rest.email}
           />
+          <span className="error-message">{errors.email}</span>
           <input
             onChange={handleOnChange}
             type="text"
@@ -47,8 +48,8 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             name="mobileNumber"
             className="bg-slate-100 p-3 rounded-lg"
             value={rest.mobileNumber}
-            required
           />
+          <span className="error-message">{errors.mobileNumber}</span>
           <input
             onChange={handleOnChange}
             type="text"
@@ -57,8 +58,8 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             className="bg-slate-100 p-3 rounded-lg"
             value={rest.description}
             name="description"
-            required
           />
+           <span className="error-message">{errors.description}</span>
 
           <select
             className="bg-slate-100 p-3 rounded-lg"
@@ -67,14 +68,14 @@ const Form = ({ handleSubmit, handleOnChange, handleClose, rest, users }) => {
             name="issueType"
             value={rest.issueType}
             onChange={handleOnChange}
-            required
           >
-           <option value="" >Issue Type</option>
+           <option value="" disabled >Issue Type</option>
             <option value="urgent_request">Urgent Request</option>
             <option value="minor_issue">Minor Issue</option>
             <option value="major_issue">Major Issue</option>
             <option value="normal">Normal</option>
           </select>          
+          <span className="error-message">{errors.issueType}</span>
           <button
           className="bg-slate-700
           text-white p-3 rounded-lg 

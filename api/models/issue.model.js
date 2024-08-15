@@ -41,6 +41,9 @@ const issueSchema = new mongoose.Schema({
         ref:'User',
         default:null,
     },
+    remarks:{
+        type:String,
+    }
 
 },{
     timestamps:true,

@@ -112,7 +112,7 @@ const Signin = () => {
         </Link>
       </div>
       <p className="text-red-700 mt-5">
-        {error? error.message || "Something went wrong" : ""}
+        {error?error.message:" "}
       </p>
     </div>
   );
