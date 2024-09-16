@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import IssuesForm from "./IssuesForm";
 import { MdClose } from "react-icons/md";
 
+// eslint-disable-next-line react/prop-types
 const UserDashboard = ({ user }) => {
   const [errors,setErrors] = useState({});
 
@@ -57,6 +59,7 @@ const UserDashboard = ({ user }) => {
 
 
   const fetchData = async () => {
+    // eslint-disable-next-line react/prop-types
     const userId = user?._id;
     const response = await axios.get(`/api/issues/getUserIssues?userId=${userId}`);
     if (response) {
@@ -118,7 +121,7 @@ const UserDashboard = ({ user }) => {
       case "email":
         if (value.length === 0) {
           error = "Email is required";
-        }else if (!/\S+@\S+\.\S+/.test(value)) {
+        }else if (!/^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
           error = "Invalid email address.";
         }
         break;
@@ -164,6 +167,7 @@ const UserDashboard = ({ user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     //validating all form fields before submission
+    console.log(formData);
     const fields = ["title","email","customerName","mobileNumber","description","issueType"];
     let hasErrors = false;
     fields.forEach((field) => {
@@ -189,7 +193,6 @@ const UserDashboard = ({ user }) => {
         mobileNumber: "",
         email: "",
         issueType: "", // Reset to default value
-        status:"",
         user:"", //Reset USER ID
         assignedTo:"",
       });

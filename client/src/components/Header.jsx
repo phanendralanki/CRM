@@ -20,6 +20,12 @@ const Header = () => {
             </Link>
           )}
 
+          {currentUser?.role === "admin" && (
+            <Link to="/charts">
+              <li>Analytics</li>
+            </Link>
+          )}
+
           {/* developer page */}
           {
             currentUser?.role === "developer" && (

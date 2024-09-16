@@ -20,7 +20,7 @@ const Admin = ({ user }) => {
     mobileNumber:"",
     email :"",
     issueType:"",  
-    status:"", 
+    status:"open", 
     user :"", 
     assignedTo:"",
     remarks:"",
@@ -32,8 +32,8 @@ const Admin = ({ user }) => {
     description: "",
     mobileNumber: "",
     email: "",
-    issueType: "normal", // Set default value
-    status: "open", // Set default value
+    issueType: "", // Set default value
+    status: "", // Set default value
     _id: "",
     user: "", // Initially empty
   });
@@ -106,9 +106,9 @@ const Admin = ({ user }) => {
         description: "",
         mobileNumber: "",
         email: "",
-        issueType: "normal", // Reset to default value
-        status: "open", // Reset to default value
-        user: "", // Reset User ID
+        issueType: "normal", 
+        status: "open", 
+        user: "", 
         assignedTo:"",
       });
     }

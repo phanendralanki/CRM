@@ -6,6 +6,7 @@ dotenv.config();
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 import issueRoutes from "./routes/issues.route.js";
+import stats from "./routes/stats.route.js";
 // import cors from 'cors';
 
 const app = express();
@@ -32,6 +33,7 @@ app.listen(3000, () => {
 app.use("/api/user",userRoutes);
 app.use("/api/auth",authRoutes);
 app.use("/api/issues",issueRoutes);
+app.use("/api",stats);
 
 //Middleware and a function to handle errors
 app.use((err,req,res,next)=> {

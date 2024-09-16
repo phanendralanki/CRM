@@ -22,7 +22,7 @@ const Admin = ({ user }) => {
     mobileNumber: "",
     email: "",
     issueType: "", 
-    status: "", 
+    status: "open", 
     user: "", 
     assignedTo: "",
     remarks:"",
@@ -115,7 +115,7 @@ const Admin = ({ user }) => {
       case "email":
         if (value.length === 0) {
           error = "Email is required";
-        }else if (!/\S+@\S+\.\S+/.test(value)) {
+        }else if (!/^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
           error = "Invalid email address.";
         }
         break;

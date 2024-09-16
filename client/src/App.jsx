@@ -18,6 +18,7 @@ import ResetPassword from "./pages/ResetPassword";
 import DeveloperRoute from "./components/DeveloperRoute";
 import {useSelector } from "react-redux";
 import Footer from "./components/Footer";
+import ChartComponent from "./components/ChartComponent";
 const App = () => {
   const {currentUser} = useSelector((state) => state.user);
 
@@ -29,6 +30,7 @@ const App = () => {
         <Toaster position="top-center" reverseOrder={false} />
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* <Route path="/charts" element={<ChartComponent user={currentUser} />}/> */}
           {/* <Route path="/signin" element={<Signin />} /> */}
           {/* <Route path="/signup" element={<Signup />} /> */}
           <Route element={<PublicRoute />}>
@@ -43,6 +45,9 @@ const App = () => {
           </Route>
           <Route element={<AdminRoute />}>
             <Route path="/admin" element={<Admin user={currentUser} />} />
+          </Route>
+          <Route element={<AdminRoute />}>
+            <Route path="/charts" element={<ChartComponent />} /> 
           </Route>
           <Route element={<DeveloperRoute />}>
               <Route path="/developer" element={<DeveloperDashboard user={currentUser} />} />
